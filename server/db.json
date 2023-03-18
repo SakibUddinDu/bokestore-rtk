@@ -35,15 +35,6 @@
       "rating": "5",
       "featured": true,
       "id": 5
-    },
-    {
-      "name": "",
-      "author": "",
-      "thumbnail": "",
-      "price": "33",
-      "rating": "3",
-      "featured": true,
-      "id": 6
     }
   ]
 }
