@@ -12,12 +12,6 @@ export default function BooksLoader() {
                     <p className="bg-slate-200 text-slate-200 text-[8px]">
                         Loading...
                     </p>
-                    <p className="bg-slate-200 text-slate-200 text-[8px]">
-                        Loading...
-                    </p>
-                    <p className="bg-slate-200 text-slate-200 text-[8px]">
-                        Loading...
-                    </p>
                 </div>
             </div>
         </div>

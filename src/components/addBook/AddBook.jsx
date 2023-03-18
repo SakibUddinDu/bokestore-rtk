@@ -1,51 +1,136 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useAddBookMutation } from "../../features/api/apiSlice";
 
 const AddBook = () => {
-    return (
-        <main class="py-6 2xl:px-6">
-        <div class="container">
-            <div class="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto">
-                <h4 class="mb-8 text-xl font-bold text-center">Add New Book</h4>
-                <form class="book-form">
-                    <div class="space-y-2">
-                        <label for="lws-bookName">Book Name</label>
-                        <input required class="text-input" type="text" id="lws-bookName" name="name" />
-                    </div>
+  const [addBook, { data: book, isLoading, isError }] = useAddBookMutation();
 
-                    <div class="space-y-2">
-                        <label for="lws-author">Author</label>
-                        <input required class="text-input" type="text" id="lws-author" name="author" />
-                    </div>
+  const [formData, setFormData] = useState({
+    name: "",
+    author: "",
+    thumbnail: "",
+    price: 0,
+    rating: 0,
+    featured: false,
+  });
+  console.log(formData)
 
-                    <div class="space-y-2">
-                        <label for="lws-thumbnail">Image Url</label>
-                        <input required class="text-input" type="text" id="lws-thumbnail" name="thumbnail" />
-                    </div>
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      featured: e.target.checked,
+    });
+  };
 
-                    <div class="grid grid-cols-2 gap-8 pb-4">
-                        <div class="space-y-2">
-                            <label for="lws-price">Price</label>
-                            <input required class="text-input" type="number" id="lws-price" name="price" />
-                        </div>
-
-                        <div class="space-y-2">
-                            <label for="lws-rating">Rating</label>
-                            <input required class="text-input" type="number" id="lws-rating" name="rating" min="1"
-                                max="5" />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center">
-                        <input id="lws-featured" type="checkbox" name="featured" class="w-4 h-4" />
-                        <label for="lws-featured" class="ml-2 text-sm"> This is a featured book </label>
-                    </div>
-
-                    <button type="submit" class="submit" id="lws-submit">Add Book</button>
-                </form>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addBook(formData)
+    setFormData({
+      name: '',
+      author: '',
+      thumbnail: '',
+      price: 0,
+      rating: 0,
+      featured: false
+    });
+    
+  };
+  return (
+    <main className="py-6 2xl:px-6">
+      <div className="container">
+        <div className="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto">
+          <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
+          <form className="book-form" onSubmit={handleSubmit}>
+            <div className="space-y-2">
+              <label htmlfor="lws-bookName">Book Name</label>
+              <input
+                required onChange={handleChange} 
+                className="text-input"
+                type="text"
+                id="lws-bookName"
+                name="name"
+              />
             </div>
+
+            <div className="space-y-2">
+              <label htmlfor="lws-author">Author</label>
+              <input
+                required onChange={handleChange}
+                className="text-input"
+                type="text"
+                id="lws-author"
+                name="author"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlfor="lws-thumbnail">Image Url</label>
+              <input
+                required onChange={handleChange}
+                className="text-input"
+                type="text"
+                id="lws-thumbnail"
+                name="thumbnail"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-8 pb-4">
+              <div className="space-y-2">
+                <label htmlfor="lws-price">Price</label>
+                <input
+                  required onChange={handleChange}
+                  className="text-input"
+                  type="number"
+                  id="lws-price"
+                  name="price"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlfor="lws-rating">Rating</label>
+                <input
+                  required onChange={handleChange}
+                  className="text-input"
+                  type="number"
+                  id="lws-rating"
+                  name="rating"
+                  min="1"
+                  max="5"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center">
+                
+              <input
+                id="lws-featured"
+                type="checkbox"
+                name="featured"
+                className="w-4 h-4"
+                onClick={handleChange}
+                checked={formData.featured}
+              />
+              <label htmlfor="lws-featured" className="ml-2 text-sm">
+                {" "}
+                This is a featured book{" "}
+              </label>
+            </div>
+
+            <button type="submit" className="submit" id="lws-submit">
+              Add Book
+            </button>
+          </form>
         </div>
+      </div>
     </main>
-    );
+  );
 };
 
 export default AddBook;
+
+
+
+
+
+
