@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useEditBookMutation } from "../../features/api/apiSlice";
 
 const Form = ({book}) => {
+  const navigate = useNavigate();
+
     const [editBook, { isLoading, isError, isSuccess }] =
     useEditBookMutation();
     
@@ -39,6 +42,7 @@ const Form = ({book}) => {
               ...formData
         }
         })
+        navigate('/')
       };
   return (
     <form className="book-form" onSubmit={handleSubmit}>

@@ -1,12 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDeleteBookMutation } from "../../features/api/apiSlice";
 
 const Book = ({ book }) => {
+  const navigate = useNavigate();
+  const [deleteBook, { isSuccess, isLoading, isError }] =
+    useDeleteBookMutation();
   const { id, name, author, thumbnail, price, rating, featured } = book;
 
   const stars = [];
   for (let i = 0; i < rating; i++) {
-    stars.push( 
+    stars.push(
       <svg viewBox="0 0 20 20" fill="currentColor" className="star">
         <path
           fillRule="evenodd"
@@ -17,10 +21,13 @@ const Book = ({ book }) => {
     );
   }
 
-  const handleDelete = (deleteItemId) => {};
-  const handleUpdate = (bookData) => {
-    console.log(bookData);
+  const handleDelete = () => {
+    if (id) deleteBook(id);
   };
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess, navigate]);
+
   return (
     <div className="book-card">
       <img
@@ -30,12 +37,10 @@ const Book = ({ book }) => {
       />
       <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
         <div className="flex items-center justify-between">
-          {featured && (
-            <span className="lws-badge">featured</span>
-          )}
+          {featured && <span className="lws-badge">featured</span>}
           <div className="text-gray-500 space-x-2">
             <Link to={`/books/edit/${id}`}>
-              <button className="lws-edit" onClick={() => handleUpdate(book)}>
+              <button className="lws-edit">
                 <svg
                   fill="none"
                   viewBox="0 0 24 24"

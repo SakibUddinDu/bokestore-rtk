@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useAddBookMutation } from "../../features/api/apiSlice";
+import { useNavigate } from 'react-router-dom';
 
 const AddBook = () => {
+  const navigate =useNavigate()
   const [addBook, { data: book, isLoading, isError }] = useAddBookMutation();
 
   const [formData, setFormData] = useState({
@@ -33,6 +35,7 @@ const AddBook = () => {
       featured: false
     });
     addBook(formData)
+    navigate('/')
   };
   return (
     <main className="py-6 2xl:px-6">
