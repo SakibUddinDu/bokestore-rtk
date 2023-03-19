@@ -1,5 +1,6 @@
 import React from "react";
-import { useGetBooksQuery } from "../../features/api/apiSlice.js";
+import { useSelector } from "react-redux";
+import { useGetBooksQuery, useSearchByNameQuery } from "../../features/api/apiSlice.js";
 import Error from "../../ui/Error";
 import BooksLoader from "../../ui/loaders/BooksLoader";
 import Book from "./Book";
@@ -7,7 +8,18 @@ import FilterBar from "./FilterBar";
 
 const BooksContainer = () => {
     const { data: books, isLoading, isError } = useGetBooksQuery();
+    const {status, searchedText}= useSelector((state)=>state.filters)
+    console.log(searchedText);
 
+    const filterByStatus = (book) => {
+      switch (status) {
+          case "Featured":
+              return book.featured;
+
+          default:
+              return true;
+      }
+  };
     // decide what to render
     let content = null;
 
@@ -27,7 +39,10 @@ const BooksContainer = () => {
     }
 
     if (!isLoading && !isError && books?.length > 0) {
-        content = books.map((book) => <Book key={book.id} book={book} />);
+        content = books
+        .filter((book)=>book.name.toLowerCase().includes(searchedText.toLowerCase()))
+        .filter(filterByStatus)
+        .map((book) => <Book key={book.id} book={book} />);
     }
 
    

@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useDeleteBookMutation } from "../../features/api/apiSlice";
 
 const Book = ({ book }) => {
   const navigate = useNavigate();
+
   const [deleteBook, { isSuccess, isLoading, isError }] =
     useDeleteBookMutation();
   const { id, name, author, thumbnail, price, rating, featured } = book;

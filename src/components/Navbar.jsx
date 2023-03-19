@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from '../Assets/images/logo.svg';
+import { useSearchByNameQuery } from "../features/api/apiSlice";
+import { filterBySearchedText } from "../features/filters/filtersSlice";
 
 const Navbar = () => {
+  const dispatch=useDispatch()
+  const [searchedText, setSearchedText] = useState('')
+  const handleChange = (e) =>{
+    setSearchedText(e.target.value)
+  }
+  useEffect(()=>{
+    dispatch(filterBySearchedText(searchedText))
+  }, [dispatch, searchedText])
+  // const { data: searchedBookResults } = useSearchByNameQuery(searchedText) || {};
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
@@ -36,6 +48,7 @@ const Navbar = () => {
               ></path>
             </svg>
             <input
+              onChange={handleChange}
               type="text"
               placeholder="Filter books..."
               className="search"

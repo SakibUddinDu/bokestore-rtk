@@ -17,6 +17,15 @@
       "rating": "5",
       "featured": false,
       "id": 3
+    },
+    {
+      "name": "Slow Horsesssssss (Deluxe Editions)",
+      "author": "Martin Js",
+      "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
+      "price": "12",
+      "rating": "1",
+      "featured": true,
+      "id": 4
     }
   ]
 }

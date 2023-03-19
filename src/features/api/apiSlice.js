@@ -38,6 +38,9 @@ export const apiSlice = createApi({
       }),
       invalidatesTags:['books']
     }),
+    searchByName: builder.query({
+      query: (name) => `books/${name}`
+  })
   }),
 });
 
@@ -46,5 +49,6 @@ export const {
   useAddBookMutation,
   useGetBookQuery,
   useEditBookMutation,
-  useDeleteBookMutation
+  useDeleteBookMutation,
+  useSearchByNameQuery
 } = apiSlice;
