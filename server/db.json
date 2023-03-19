@@ -31,9 +31,9 @@
       "name": "Eloquent JS",
       "author": "Martin Js",
       "thumbnail": "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
-      "price": "33333",
-      "rating": "5",
-      "featured": true,
+      "price": "444444444",
+      "rating": "4",
+      "featured": false,
       "id": 5
     }
   ]

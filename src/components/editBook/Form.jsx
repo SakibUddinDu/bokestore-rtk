@@ -4,10 +4,12 @@ import { useEditBookMutation } from "../../features/api/apiSlice";
 const Form = ({book}) => {
     const [editBook, { isLoading, isError, isSuccess }] =
     useEditBookMutation();
+    
     const [formData, setFormData] = useState({
         ...book
       });
       console.log(formData);
+      console.log({id:book.id,...book})
       const {name, author, thumbnail, price, rating, featured} =formData;
     
       const handleChange = (e) => {
@@ -21,6 +23,7 @@ const Form = ({book}) => {
     
       const handleSubmit = (e) => {
         e.preventDefault();
+      
         setFormData({
           name: '',
           author: '',
@@ -29,11 +32,13 @@ const Form = ({book}) => {
           rating: 0,
           featured: false
         });
-    //     editBook( id,
-    //         data: {
-    //             ...formData
-    // })
     
+        editBook({
+          id:book.id,
+          data: {
+              ...formData
+        }
+        })
       };
   return (
     <form className="book-form" onSubmit={handleSubmit}>
